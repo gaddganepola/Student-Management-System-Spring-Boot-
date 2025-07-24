@@ -12,6 +12,10 @@ public class StudentService {
 
     private StudentRepo repo;
 
+    public Student getStudentById(int rollno) {
+        return repo.findStudent(rollno);
+    }
+
     public void addStudent(Student s) {
         repo.save(s);
     }
@@ -27,5 +31,9 @@ public class StudentService {
     @Autowired
     public void setRepo(StudentRepo repo) {
         this.repo = repo;
+    }
+
+    public void deleteStudent(int rollno) {
+        repo.delete(rollno);
     }
 }

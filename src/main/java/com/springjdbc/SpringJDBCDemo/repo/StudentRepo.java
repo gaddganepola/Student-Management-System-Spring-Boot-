@@ -47,4 +47,34 @@ public class StudentRepo {
     public void setJdbc(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }
+
+    public Student findStudent(int rollno) {
+
+        String query = "SELECT * FROM student WHERE rollno = ?";
+
+        RowMapper<Student> mapper = (rs, rowNum) -> {
+                Student s = new Student();
+                s.setRollno(rs.getInt("rollno"));
+                s.setName(rs.getString("name"));
+                s.setMarks(rs.getInt("marks"));
+                return s;
+        };
+
+        List<Student> students = jdbc.query(query, mapper, rollno);
+
+        return students.isEmpty() ? null : students.get(0);
+    }
+
+    public void delete(int rollno) {
+
+        String query = "DELETE FROM student WHERE rollno = ?";
+
+        int rows = jdbc.update(query, rollno);
+
+        if (rows == 1) {
+            System.out.println("Deleted " + rollno);
+        }else {
+            System.out.println("Failed to delete " + rollno);
+        }
+    }
 }

@@ -25,6 +25,10 @@ public class SpringJdbcDemoApplication {
 		List<Student> students = service.getAllStudents();
 		System.out.println(students);
 
+		Student s2 = service.getStudentById(104);
+		System.out.println(s2);
+
+		service.deleteStudent(105);
 	}
 
 }
